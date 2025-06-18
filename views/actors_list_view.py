@@ -8,4 +8,3 @@ def render_actors_list_page():
     ''')
     layout(lambda: actors_list(), current_page='Atores')
     
-ui.page('/atores')(render_actors_list_page) 

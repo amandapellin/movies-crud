@@ -7,5 +7,3 @@ def render_movie_list_page():
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     ''')
     layout(lambda: movie_list(), current_page='Filmes')
-
-ui.page('/filmes')(render_movie_list_page)

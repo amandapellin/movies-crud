@@ -17,4 +17,3 @@ def render_form_page(filme_id: int = None):
     else:
         layout(form)
 
-ui.page('/form')(render_form_page)
