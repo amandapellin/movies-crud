@@ -8,8 +8,9 @@ import json
 
 def actors_list():
     ATORES_POR_PAGINA = 24
-    pagina_atual = 1
-    total_atores = []
+    pagina_atual:int = 1
+    total_atores:list = []
+    termo_busca:str = ''
     
     def carregar_todos_atores():
         try:
@@ -26,12 +27,17 @@ def actors_list():
     
     def obter_pagina_atores(pagina):
         atores = carregar_todos_atores()
+        if termo_busca:
+            atores = [a for a in atores if termo_busca in a['nome'].lower()]
         inicio = (pagina - 1) * ATORES_POR_PAGINA
         fim = inicio + ATORES_POR_PAGINA
         return atores[inicio:fim]
     
     def calcular_total_paginas():
-        total = len(carregar_todos_atores())
+        total = len([
+            a for a in carregar_todos_atores()
+            if termo_busca in a['nome'].lower()
+        ]) if termo_busca else len(carregar_todos_atores())
         return math.ceil(total / ATORES_POR_PAGINA)
     
     def obter_filmes_ator(ator_nome):
@@ -142,14 +148,26 @@ def actors_list():
         total_atores = pessoas
         pagina_atual = 1
         carregar_e_exibir()
+        
+    def atualizar_busca(e):
+        nonlocal termo_busca, pagina_atual
+        novo_valor = (e.value or '').strip().lower()
+        if novo_valor != termo_busca:
+            termo_busca = novo_valor
+            pagina_atual = 1
+            carregar_e_exibir()
     
     ui.label('Lista de Atores').classes('text-center w-full mt-8').style('color: #6E93D6; font-size: 200%; font-weight: 500; margin-bottom: 20px;')
     
     with ui.card().classes('w-full max-w-6xl mx-auto p-8'):
         with ui.row().classes('w-full justify-between items-center mb-4'):
+            ui.input(
+                placeholder='Buscar ator por nome...',
+                on_change=atualizar_busca
+            ).props('clearable').classes('w-full mb-4')
             with ui.row().classes('items-center gap-4'):
                 info_label = ui.label('')
-                ui.button('🎲 Embaralhar', on_click=embaralhar_atores).classes('bg-blue-500 text-white')
+                ui.button('Atualizar', on_click=embaralhar_atores).classes('bg-blue-500 text-white')
             
             def alterar_itens_por_pagina(value):
                 nonlocal ATORES_POR_PAGINA, pagina_atual

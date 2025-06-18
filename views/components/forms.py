@@ -70,19 +70,19 @@ def form(filme=None):
             
             nota_input.value = str(filme.nota_media) if filme.nota_media else ''
             votos_input.value = str(filme.total_votos) if filme.total_votos else ''
-            pais_select.value = filme.pais_origem if filme.pais_origem else []
+            pais_select.value = filme.pais_origem if filme.pais_origem else []  
             sinopse_textarea.value = filme.sinopse or ''
             poster_input.value = filme.poster_url or ''
             
-            if hasattr(filme, 'diretor') and filme.diretor:
-                diretor_select.value = filme.diretor.nome if hasattr(filme.diretor, 'nome') else filme.diretor
-            if hasattr(filme, 'elenco') and filme.elenco:
-                elenco_select.value = [p.nome if hasattr(p, 'nome') else p for p in filme.elenco]
-            if hasattr(filme, 'roteiristas') and filme.roteiristas:
-                roteiristas_select.value = [p.nome if hasattr(p, 'nome') else p for p in filme.roteiristas]
-            if hasattr(filme, 'produtores') and filme.produtores:
-                produtores_select.value = [p.nome if hasattr(p, 'nome') else p for p in filme.produtores]
-        
+            if filme.pessoas_referencias and filme.pessoas_referencias.get('diretor'):
+                diretor_select.value = filme.pessoas_referencias['diretor']['nome']
+            if filme.pessoas_referencias and filme.pessoas_referencias.get('elenco'):
+                elenco_select.value = [pessoa['nome'] for pessoa in filme.pessoas_referencias['elenco']]
+            if filme.pessoas_referencias and filme.pessoas_referencias.get('roteiristas'):
+                roteiristas_select.value = [pessoa['nome'] for pessoa in filme.pessoas_referencias['roteiristas']]
+            if filme.pessoas_referencias and filme.pessoas_referencias.get('produtores'):
+                produtores_select.value = [pessoa['nome'] for pessoa in filme.pessoas_referencias['produtores']]
+
         def salvar_filme():
             try:
                 if not titulo_input.value:
