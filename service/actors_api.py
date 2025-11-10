@@ -2,8 +2,12 @@ import requests
 import os
 import json
 from datetime import datetime, timedelta
+from dotenv import load_dotenv, find_dotenv
 
-TMDB_BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZTVlZDlhNTQzMWRjOWZlMmE2MmZlZmIyMTBjNTllNiIsIm5iZiI6MTc0ODUzOTg5NS43NDQsInN1YiI6IjY4Mzg5OWY3NzRiZjhhZTUzZjJiODk3NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0qEdzoBKClx5wYtwaest9qBteiCNJoFuqieiAl7eXbE'
+load_dotenv(find_dotenv(".env"))
+TOKEN = os.environ["TMDB_TOKEN"]
+
+TMDB_BEARER_TOKEN = f"{TOKEN}"
 TMDB_BASE_URL = 'https://api.themoviedb.org/3'
 CACHE_FILE = os.path.join(os.path.dirname(__file__), 'pessoas_cache.json')
 MASTER_DATABASE_FILE = os.path.join(os.path.dirname(__file__), 'pessoas_master_db.json')
