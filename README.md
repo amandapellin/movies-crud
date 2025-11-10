@@ -1,6 +1,6 @@
 # CRUD de Filmes
 
-Um sistema CRUD (Create, Read, Update, Delete) para gerenciamento de filmes desenvolvido em Python usando NiceGUI para a interface web, seguindo o padrão MVC (Model-View-Controller).
+Um sistema CRUD (Create, Read, Update, Delete) para gerenciamento de filmes desenvolvido em Python usando NiceGUI para a interface web, seguindo o padrão MVC (Model-View-Controller), feito com base (clone) no site https://filmow.com/ para atividade avaliativa final de Orientação a Objetos II.
 
 ## Para executar o projeto
 
